@@ -8,3 +8,26 @@ body{
 input:focus{
  outline: none;
 }
+
+@media screen and (max-width: 1600px) {
+  .respons{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  .top{
+    display: none;
+  }
+}
+
+.top{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 0.5rem ;
+ }
+ .left{
+  display: none;
+ }

@@ -1,10 +1,12 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import React, { FormEvent, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const SingupForm = () => {
+    const router = useRouter()
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -37,7 +39,7 @@ const SingupForm = () => {
       setEmail("");
       setPhone("");
       setPassword("");
-      
+      router.replace("/p-user")
     }
   };
 

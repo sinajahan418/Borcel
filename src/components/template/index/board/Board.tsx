@@ -17,21 +17,9 @@ const columnList: Column[] = [
 ];
 
 const Board = () => {
-  const router = useRouter();
   const [carts, setCarts] = useState<Column[]>(columnList);
-  const [loding, setLoding] = useState(true);
-  useEffect(() => {
-    const isUserIn = async () => {
-      setLoding(true);
-      const res = await fetch("api/auth/authuser");
-      const data = await res.json();
-      setLoding(false);
-      if (!data?.data) {
-        router.replace("/singup");
-      }
-    };
-    isUserIn();
-  }, []);
+  const [loding, setLoding] = useState(false);
+ 
   return (
     <>
       {loding ? (

@@ -39,7 +39,9 @@ const SingupForm = () => {
       setEmail("");
       setPhone("");
       setPassword("");
-      router.replace("/p-user")
+      setLoding(true)
+      router.replace("/p-admin")
+      setLoding(false)
     }
   };
 

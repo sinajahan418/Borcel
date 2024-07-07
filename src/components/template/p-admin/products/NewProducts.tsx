@@ -3,11 +3,10 @@ import { IoMdCloseCircleOutline } from "react-icons/io";
 
 const NewProducts = ({ ocClose }: any) => {
   return (
-    <div>
+    <div className=" flex justify-between items-center p-4">
       <form>
-        <div>
-          <label htmlFor="">title</label>
-          <input type="text" />
+        <div className=" font-bold p-2 text-2xl">
+        this item is available , when we build the back end  
         </div>
       </form>
       <div onClick={ocClose}>

@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Column = () => {
+const page = () => {
   return (
     <div>
-      
+      ooooooooooooooooo
     </div>
   );
 }
 
-export default Column;
+export default page;

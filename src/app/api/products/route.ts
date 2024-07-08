@@ -1,77 +1,60 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import  { conectmongo }  from "@/config/db"
-import Product from "@/models/Product";
-import Collection from "@/models/Collection";
+import ProductModel from "@/models/Product";
+import path from "path";
+import { writeFile } from "fs/promises";
 
-export const POST = async (req: NextRequest) => {
+export async function POST(req: any) {
   try {
-    // const { userId } = auth();
+    conectmongo();
+    const formData = await req.formData();
 
-    // if (!userId) {
-    //   return new NextResponse("Unauthorized", { status: 401 });
-    // }
+    const name = formData.get("name");
+    const price = formData.get("price");
+    const shortDescription = formData.get("shortDescription");
+    const longDescription = formData.get("longDescription");
+    const weight = formData.get("weight");
+    const suitableFor = formData.get("suitableFor");
+    const smell = formData.get("smell");
+    const tags = (formData.get("tags"))
+    const img = formData.get("img");
 
-    await conectmongo();
+    const buffer = Buffer.from(await img.arrayBuffer());
+    const fillName = Date.now() + img.name;
 
-    const {
-      title,
-      description,
-      media,
-      category,
-      collections,
-      tags,
-      sizes,
-      colors,
+    await writeFile(
+      path.join(process.cwd(), "public/uplode/" + fillName),
+      buffer
+    );
+
+    const product = await ProductModel.create({
+      name,
       price,
-      expense,
-    } = await req.json();
-
-    if (!title || !description || !media || !category || !price || !expense) {
-      return new NextResponse("Not enough data to create a product", {
-        status: 400,
-      });
-    }
-
-    const newProduct = await Product.create({
-      title,
-      description,
-      media,
-      category,
-      collections,
+      shortDescription,
+      longDescription,
+      weight,
+      suitableFor,
+      smell,
       tags,
-      sizes,
-      colors,
-      price,
-      expense,
+      img: `http://localhost:3000/uplode/${fillName}`
     });
 
-    await newProduct.save();
-
-    if (collections) {
-      for (const collectionId of collections) {
-        const collection = await Collection.findById(collectionId);
-        if (collection) {
-          collection.products.push(newProduct._id);
-          await collection.save();
-        }
-      }
-    }
-
-    return NextResponse.json(newProduct, { status: 200 });
+    return Response.json(
+      { message: "Product created successfully :))", data: product },
+      { status: 201 }
+    );
   } catch (err) {
-    console.log("[products_POST]", err);
-    return new NextResponse("Internal Error", { status: 500 });
+    return Response.json({ message: err }, { status: 500 });
   }
-};
+}
 
 export const GET = async (req: NextRequest) => {
   try {
     await conectmongo();
 
-    const products = await Product.find()
+    const products = await ProductModel.find()
       .sort({ createdAt: "desc" })
-      .populate({ path: "collections", model: Collection });
 
     return NextResponse.json(products, { status: 200 });
   } catch (err) {

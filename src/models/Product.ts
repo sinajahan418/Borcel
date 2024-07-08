@@ -1,20 +1,48 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
-const ProductSchema = new mongoose.Schema({
-  title: String,
-  description: String,
-  media: [String],
-  category: String,
-  collections: [{ type: mongoose.Schema.Types.ObjectId, ref: "Collection" }],
-  tags: [String],
-  sizes: [String],
-  colors: [String],
-  price: { type: mongoose.Schema.Types.Decimal128, get: (v: mongoose.Schema.Types.Decimal128) => { return parseFloat(v.toString()) }},
-  expense: { type: mongoose.Schema.Types.Decimal128, get: (v: mongoose.Schema.Types.Decimal128) => { return parseFloat(v.toString()) }},
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
-}, { toJSON: { getters: true } });
+const schema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  shortDescription: {
+    type: String,
+    required: true,
+  },
+  longDescription: {
+    type: String,
+    required: true,
+  },
+  weight: {
+    type: Number,
+    required: true,
+  },
+  suitableFor: {
+    type: String,
+    required: true,
+  },
+  smell: {
+    type: String,
+    required: true,
+  },
+  img: {
+    type: String,
+    required: true,
+  },
+  score: {
+    type: Number,
+    default: 5,
+  },
+  tags: {
+    type: [String],
+    required: true,
+  },
+});
 
-const Product = mongoose.models.Product || mongoose.model("Product", ProductSchema);
+const model = mongoose.models.Product || mongoose.model("Product", schema);
 
-export default Product;
+export default model;

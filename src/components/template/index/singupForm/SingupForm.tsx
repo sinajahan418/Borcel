@@ -40,7 +40,7 @@ const SingupForm = () => {
       setPhone("");
       setPassword("");
       setLoding(true)
-      router.replace("/p-admin")
+      router.replace("/")
       setLoding(false)
     }
   };

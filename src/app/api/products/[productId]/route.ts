@@ -1,21 +1,18 @@
-import Collection from "@/lib/models/Collection";
-import Product from "@/lib/models/Product";
-import { connectToDB } from "@/lib/mongoDB";
-import { auth } from "@clerk/nextjs";
+import Collection from "@/models/Collection";
+import Product from "@/models/Product";
 
 import { NextRequest, NextResponse } from "next/server";
+import { conectmongo } from "@/config/db";
 
 export const GET = async (
   req: NextRequest,
   { params }: { params: { productId: string } }
 ) => {
   try {
-    await connectToDB();
+    await conectmongo();
 
-    const product = await Product.findById(params.productId).populate({
-      path: "collections",
-      model: Collection,
-    });
+    const product = await Product.findById(params.productId)
+  
 
     if (!product) {
       return new NextResponse(
@@ -48,7 +45,7 @@ export const POST = async (
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    await connectToDB();
+    await conectmongo();
 
     const product = await Product.findById(params.productId);
 

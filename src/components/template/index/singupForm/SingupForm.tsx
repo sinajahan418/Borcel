@@ -47,7 +47,7 @@ const SingupForm = () => {
 
   return (
     <form
-      className="ml-[35%] mt-8 w-[400px] flex flex-col justify-center items-center"
+      className=" mx-auto mt-20 w-[300px] flex flex-col justify-center items-center bg-slate-100 shadow-xl rounded-3xl"
       onSubmit={(e) => e.preventDefault()}
     >
       {loding ? (

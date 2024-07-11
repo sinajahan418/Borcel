@@ -1,15 +1,15 @@
-import Product from "@/lib/models/Product";
-import { connectToDB } from "@/lib/mongoDB";
+import Product from "@/models/Product";
+import { conectmongo } from "@/config/db";
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (req: NextRequest, { params }: { params: { query: string }}) => {
   try {
-    await connectToDB()
+    await conectmongo()
 
     const searchedProducts = await Product.find({
       $or: [
-        { title: { $regex: params.query, $options: "i" } },
-        { category: { $regex: params.query, $options: "i" } },
+        { name: { $regex: params.query, $options: "i" } },
+        { shortDescription: { $regex: params.query, $options: "i" } },
         { tags: { $in: [new RegExp(params.query, "i")] } } // $in is used to match an array of values
       ]
     })

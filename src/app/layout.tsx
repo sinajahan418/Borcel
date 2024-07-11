@@ -4,6 +4,7 @@ import "./global.css";
 import NavBar from "@/components/modules/navBar/NavBar";
 import Footer from "@/components/modules/footer/Footer";
 import { authUser } from "@/utils/authuser";
+import AosInit from "@/utils/aos";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,15 +18,15 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   const user = await authUser();
   return (
     <html lang="en">
       <body className={inter.className}>
         <div className=" flex flex-col min-h-screen">
-          <NavBar isUser={user? "LOGOUT" : "LOGIN"}/>
+          <AosInit />
+          <NavBar isUser={user ? "LOGOUT" : "LOGIN"} />
           <main className=" flex-grow">{children}</main>
-          <Footer/>
+          <Footer />
         </div>
       </body>
     </html>

@@ -25,22 +25,15 @@ const HomeProduct = () => {
       setProduct(data);
     };
     getHomeProduct();
+   
   }, []);
 
   return (
     <>
-      <div className=" m-2 rounded-3xl opacity-[0.9] shadow-2xl  p-4">
-        <div className=" flex flex-row items-center justify-between p-2">
-          <h1 className="flex flex-row gap-2 items-center font-bold text-xl bg-gray-300 shadow-xl p-2 rounded-2xl">
-          <FaChevronLeft />
-            {" "}
-            <Link href="/products">
-            all products
-
-            </Link>
-          </h1>
-          <h1 className=" font-bold text-2xl">Products</h1>
-        </div>
+      <div
+        
+        className=" m-2 rounded-3xl opacity-[0.9] shadow-2xl bg-slate-100  p-4"
+      >
         {loading && (
           <div className=" w-[40%] h-[300px] animate-pulse bg-slate-300 mx-auto rounded-3xl shadow-xl"></div>
         )}
@@ -76,6 +69,12 @@ const HomeProduct = () => {
         ) : (
           ""
         )}
+        <div className=" flex flex-row items-center justify-between p-2">
+          <h1 className="flex flex-row gap-2 items-center font-bold text-xl bg-gray-300 shadow-xl p-2 rounded-2xl">
+            <FaChevronLeft /> <Link href="/products">all products</Link>
+          </h1>
+          <h1 className=" font-bold text-2xl">Products</h1>
+        </div>
       </div>
     </>
   );

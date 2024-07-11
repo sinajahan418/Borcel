@@ -12,5 +12,3 @@ export const GET = async () => {
     return Response.json({ massege: err }, { status: 510 });
   }
 };
-
-export const dynamic = "force-dynamic";
